@@ -9,8 +9,7 @@ class Node {
 
 class Tree {
     constructor(arr) {
-        this.arr = this.#sort(arr)
-        this.root = this.#buildTree(this.arr)
+        this.root = this.#buildTree(this.#sort(arr))
     }
 
     #sort(arr) {
