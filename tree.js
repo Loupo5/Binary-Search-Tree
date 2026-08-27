@@ -42,7 +42,7 @@ class Tree {
     includes(value) {
         let tree = this.root
         
-        while (tree.root !== undefined) {
+        while (tree !== null) {
             if (tree.root === value) {
                 return true
             } else if (value > tree.root) {
@@ -52,6 +52,35 @@ class Tree {
             }
         }
         return false
+    }
+
+    insert(value) {
+        let tree = this.root
+
+        if (!Number.isInteger(value)) return 
+
+        if (tree.root === null) {
+            tree.root = new Node(value)
+        }
+
+        while (tree !== null) {
+            if (tree.root === value) return
+
+            if (value > tree.root) {
+                if (tree.right === null) {
+                    tree.right = new Node(value)
+                    return 
+                }
+                tree = tree.right
+                
+            } else {
+                if (tree.left === null) {
+                    tree.left = new Node(value)
+                    return 
+                }
+                tree = tree.left
+            }
+        }
     }
     
 
@@ -71,5 +100,9 @@ const arr = [2, 5, 1, 3, 6, 7, 2, 5, 1]
 
 const tree = new Tree(arr)
 
+tree.insert(10)
+tree.insert(11)
+tree.insert(0)
+console.log(tree)
 console.log(tree.includes(5))
 console.log(tree.prettyPrint(tree.root))
