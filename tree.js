@@ -9,8 +9,8 @@ class Node {
 
 class Tree {
     constructor(arr) {
-        this.root = null
         this.arr = this.#sort(arr)
+        this.root = this.#buildTree(this.arr)
     }
 
     #sort(arr) {
@@ -24,36 +24,38 @@ class Tree {
         return removedDup
     }
 
-    buildTree(arr, start = 0, end = arr.length-1) {
+    #buildTree(arr = this.arr, start = 0, end = arr.length-1) {
+        
         if (start > end) return null
 
         const mid = Math.floor((start + end) / 2)
         const node = new Node(arr[mid])
         
-        const left = this.buildTree(arr, start, mid-1)
+        
+        const left = this.#buildTree(arr, start, mid-1)
         node.left = left
-        const right = this.buildTree(arr, mid+1, end)
+        const right = this.#buildTree(arr, mid+1, end)
         node.right = right
 
         return node
     }
+    
 
-    prettyPrint = (node, prefix = '', isLeft = true) => {
+    prettyPrint(node, prefix = '', isLeft = true) {
         if (node === null || node === undefined) {
             return;
         }
 
-        prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
-        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
-        prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+        this.prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.root}`);
+        this.prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
     }
 
 }
 
+const arr = [2, 5, 1, 3, 6, 7, 2, 5, 1]
+
+const tree = new Tree(arr)
 
 
-const tree = new Tree([2, 5, 1, 3, 6, 7, 2, 5, 1, 10, 20, 40])
-
-console.log(tree)
-console.log(tree.prettyPrint(tree))
-
+console.log(tree.prettyPrint(tree.root))
