@@ -39,8 +39,27 @@ class Tree {
         return node
     }
 
-    includes(value) {
+    #getValue(value) {
         let tree = this.root
+        
+        while (tree !== null) {
+            if (tree.root === value) {
+                return tree
+            } else if (value > tree.root) {
+                tree = tree.right
+            } else {
+                tree = tree.left
+            }
+        }
+        return
+    }
+
+    includes(value) {
+        if (this.#getValue(value)) {
+            return true
+        }
+        return false
+        /*let tree = this.root
         
         while (tree !== null) {
             if (tree.root === value) {
@@ -51,7 +70,7 @@ class Tree {
                 tree = tree.left
             }
         }
-        return false
+        return false*/
     }
 
     insert(value) {
@@ -82,6 +101,20 @@ class Tree {
             }
         }
     }
+
+    /*deleteItem(value) {
+        if (!this.includes(value)) return
+
+        if (this.root === null) return 
+
+        let tree = this.root
+        while (tree !== null) {
+            if (tree.root === value) {
+                tree = null
+                return 
+            }
+        }
+    }*/
     
 
     prettyPrint(node, prefix = '', isLeft = true) {
@@ -103,6 +136,7 @@ const tree = new Tree(arr)
 tree.insert(10)
 tree.insert(11)
 tree.insert(0)
+
 console.log(tree)
-console.log(tree.includes(5))
+console.log(tree.includes(7))
 console.log(tree.prettyPrint(tree.root))
