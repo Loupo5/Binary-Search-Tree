@@ -91,8 +91,15 @@ class Tree {
     }
 
     deleteItem(value) {
-        // if the value is in the middle connect parent
-        //  to the child on the deleted value
+        // make logic for deleting nodes who have two children nodes
+        // have to replace the node with the smallest node on the right subtree
+        /* example: 
+                3
+              2   5
+            1    4  6  --> here if 3 is deleted, 4 should come into its place
+                            because its the smallest value on the right side.
+                            ALSO -- could replace the largest value of the left side
+                                    (won't do that)*/
         let item = this.#getValue(value)
         if (!item) return 
 
