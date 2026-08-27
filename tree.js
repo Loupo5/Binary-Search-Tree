@@ -59,18 +59,6 @@ class Tree {
             return true
         }
         return false
-        /*let tree = this.root
-        
-        while (tree !== null) {
-            if (tree.root === value) {
-                return true
-            } else if (value > tree.root) {
-                tree = tree.right
-            } else {
-                tree = tree.left
-            }
-        }
-        return false*/
     }
 
     insert(value) {
@@ -102,19 +90,14 @@ class Tree {
         }
     }
 
-    /*deleteItem(value) {
-        if (!this.includes(value)) return
+    deleteItem(value) {
+        // if the value is in the middle connect parent
+        //  to the child on the deleted value
+        let item = this.#getValue(value)
+        if (!item) return 
 
-        if (this.root === null) return 
-
-        let tree = this.root
-        while (tree !== null) {
-            if (tree.root === value) {
-                tree = null
-                return 
-            }
-        }
-    }*/
+        item = undefined
+    }
     
 
     prettyPrint(node, prefix = '', isLeft = true) {
@@ -137,6 +120,10 @@ tree.insert(10)
 tree.insert(11)
 tree.insert(0)
 
+tree.deleteItem(6)
+
 console.log(tree)
 console.log(tree.includes(7))
 console.log(tree.prettyPrint(tree.root))
+
+
