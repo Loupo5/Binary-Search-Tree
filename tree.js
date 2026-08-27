@@ -38,6 +38,21 @@ class Tree {
 
         return node
     }
+
+    includes(value) {
+        let tree = this.root
+        
+        while (tree.root !== undefined) {
+            if (tree.root === value) {
+                return true
+            } else if (value > tree.root) {
+                tree = tree.right
+            } else {
+                tree = tree.left
+            }
+        }
+        return false
+    }
     
 
     prettyPrint(node, prefix = '', isLeft = true) {
@@ -56,5 +71,5 @@ const arr = [2, 5, 1, 3, 6, 7, 2, 5, 1]
 
 const tree = new Tree(arr)
 
-
+console.log(tree.includes(5))
 console.log(tree.prettyPrint(tree.root))
