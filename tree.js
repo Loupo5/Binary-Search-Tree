@@ -105,14 +105,20 @@ class Tree {
             
             if (value > tree.root) {
                 if (tree.right === item) {
-                    tree.right = null
+                    if (tree.right.left === null && tree.right.right === null) {
+                        tree.right = null
+                        return 
+                    }
                     return 
                 } 
                 tree = tree.right
             }
             else if (value < tree.root) {
                 if (tree.left === item) {
-                    tree.left = null
+                    if (tree.left.left === null && tree.left.right === null) {
+                        tree.left = null
+                        return 
+                    }
                     return 
                 }
                 tree = tree.left
@@ -140,7 +146,7 @@ const tree = new Tree(arr)
 tree.insert(10)
 tree.insert(11)
 tree.insert(0)
-tree.deleteItem(1)
+tree.deleteItem(11)
 
 console.log(tree)
 console.log(tree.includes(7))
