@@ -38,10 +38,22 @@ class Tree {
         return node
     }
 
+    prettyPrint = (node, prefix = '', isLeft = true) => {
+        if (node === null || node === undefined) {
+            return;
+        }
+
+        prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
+        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
+        prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
+    }
 
 }
+
+
 
 const tree = new Tree([2, 5, 1, 3, 6, 7, 2, 5, 1, 10, 20, 40])
 
 console.log(tree)
-console.log(tree.buildTree(tree.arr))
+console.log(tree.prettyPrint(tree))
+
