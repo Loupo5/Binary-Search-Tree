@@ -98,9 +98,10 @@ class Tree {
 
         let tree = this.root
         if (tree === item) {
-            tree = undefined
+            this.root = null
             return 
         }
+
         while(tree !== null) {
             
             if (value > tree.root) {
@@ -109,6 +110,11 @@ class Tree {
                         tree.right = null
                         return 
                     }
+                    let parent = tree
+                    if (item.left !== null) {
+                        item.right.left = item.left
+                    }
+                    parent.right = tree.right.right
                     return 
                 } 
                 tree = tree.right
@@ -119,6 +125,11 @@ class Tree {
                         tree.left = null
                         return 
                     }
+                    let parent = tree
+                    if (item.right !== null) {
+                        item.left.right = item.right
+                    }
+                    parent.left = tree.left.left
                     return 
                 }
                 tree = tree.left
@@ -146,7 +157,7 @@ const tree = new Tree(arr)
 tree.insert(10)
 tree.insert(11)
 tree.insert(0)
-tree.deleteItem(11)
+tree.deleteItem(1)
 
 console.log(tree)
 console.log(tree.includes(7))
