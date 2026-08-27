@@ -96,7 +96,28 @@ class Tree {
         let item = this.#getValue(value)
         if (!item) return 
 
-        item = undefined
+        let tree = this.root
+        if (tree === item) {
+            tree = undefined
+            return 
+        }
+        while(tree !== null) {
+            
+            if (value > tree.root) {
+                if (tree.right === item) {
+                    tree.right = null
+                    return 
+                } 
+                tree = tree.right
+            }
+            else if (value < tree.root) {
+                if (tree.left === item) {
+                    tree.left = null
+                    return 
+                }
+                tree = tree.left
+            }
+        }
     }
     
 
@@ -119,11 +140,14 @@ const tree = new Tree(arr)
 tree.insert(10)
 tree.insert(11)
 tree.insert(0)
-
-tree.deleteItem(6)
+tree.deleteItem(1)
 
 console.log(tree)
 console.log(tree.includes(7))
 console.log(tree.prettyPrint(tree.root))
+
+const tree2 = new Tree([1])
+tree2.deleteItem(1)
+console.log(tree2)
 
 
