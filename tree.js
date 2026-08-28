@@ -105,7 +105,29 @@ class Tree {
 
         let tree = this.root
         if (tree === item) {
-            this.root = null
+            if (tree.left === null && tree.right === null) {
+                this.root = null
+                return 
+            }
+            if (tree.left !== null && tree.right === null) {
+                this.root = tree.left
+                return
+            }
+            if (tree.right !== null && tree.left === null) {
+                this.root = tree.right
+                return 
+            }
+            if (tree.left !== null && tree.right !== null) {
+                tree = tree.right
+                let parent;
+                while (tree.left !== null) {
+                    parent = tree
+                    tree = tree.left
+                    
+                } 
+                parent.left = tree.right
+                this.root.root = tree.root
+            }
             return 
         }
 
@@ -164,14 +186,18 @@ const tree = new Tree(arr)
 tree.insert(10)
 tree.insert(11)
 tree.insert(0)
-tree.deleteItem(6)
+tree.deleteItem()
 
 console.log(tree)
 console.log(tree.includes(7))
 console.log(tree.prettyPrint(tree.root))
 
-const tree2 = new Tree([1])
+const tree2 = new Tree([1, 2])
 tree2.deleteItem(1)
-console.log(tree2)
+console.log(tree2.prettyPrint(tree2.root))
+
+const tree3 = new Tree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+tree3.deleteItem(5)
+console.log(tree3.prettyPrint(tree3.root))
 
 
