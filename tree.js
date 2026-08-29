@@ -232,19 +232,54 @@ class Tree {
 
     height(value) {
         if (this.root === null) return
+
+        let queue = [this.root]
+        let index = 0
+        let current;
+
+        while (index < queue.length) {
+            current = queue[index++]
+
+            if (current.left !== null) {
+                queue.push(current.left)
+            }
+            if (current.right !== null) {
+                queue.push(current.right)
+            }
+        }
+        let deepest = this.depth(current.root)
         let tree = this.root
-        let height = 0
+        index = 0
 
         while (tree !== null) {
             if (tree.root === value) {
-                return height
+                return deepest - index
             }
             if (value > tree.root) {
                 tree = tree.right
-                height++
+                index++
             } else {
                 tree = tree.left
-                height++
+                index++
+            }
+        }
+    }
+
+    depth(value) {
+        if (this.root === null) return
+        let tree = this.root
+        let index = 0
+
+        while (tree !== null) {
+            if (tree.root === value) {
+                return index
+            }
+            if (value > tree.root) {
+                tree = tree.right
+                index++
+            } else {
+                tree = tree.left
+                index++
             }
         }
     }
@@ -272,6 +307,7 @@ tree3.deleteItem()
 console.log(prettyPrint(tree3.root))
 
 
-console.log(tree3.height(7))
+console.log(tree3.height(3))
+console.log(tree3.depth(3))
 
 
