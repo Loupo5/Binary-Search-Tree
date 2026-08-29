@@ -198,6 +198,38 @@ class Tree {
         preorder(this.root) 
     }
 
+    inOrderForEach(callback) {
+        if (this.root === null) return
+        if (!callback) {
+            throw new Error("A callback is requiered")
+        }
+
+        function inorder(root) {
+            if (root === null) return
+
+            inorder(root.left)
+            callback(root.root)
+            inorder(root.right)
+        }
+        inorder(this.root)
+    }
+
+    postOrderForEach(callback) {
+        if (this.root === null) return
+        if (!callback) {
+            throw new Error("A callback is required")
+        }
+
+        function postorder(root) {
+            if (root === null) return
+
+            postorder(root.left)
+            postorder(root.right)
+            callback(root.root)
+        }
+        postorder(this.root)
+    }
+
 }
 
 const arr = [2, 5, 1, 3, 6, 7, 2, 5, 1]
@@ -218,11 +250,11 @@ tree2.deleteItem(1)
 console.log(prettyPrint(tree2.root))
 
 const tree3 = new Tree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
-tree3.deleteItem(5)
+tree3.deleteItem()
 console.log(prettyPrint(tree3.root))
 
 
-console.log(tree3.preOrderForEach((value) => {
+console.log(tree3.postOrderForEach((value) => {
     console.log(value)
 }))
 
