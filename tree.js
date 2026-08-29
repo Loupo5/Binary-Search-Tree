@@ -181,18 +181,21 @@ class Tree {
     }
 
     preOrderForEach(callback) {
-        function preorder(root)
-        let current = this.root
-        if (current === null) return
+        if (this.root === null) return
         if (!callback) return
-        
-        callback(current.root)
-        if (current.left !== null) {
-            let currentLeft = current.left
-            this.preOrderForEach
-        }
 
-        
+        function preorder(root) {
+            if (root === null) return 
+
+            let current = root
+            callback(current.root)
+            
+            preorder(current.left)
+            
+            preorder(current.right)
+            
+        }
+        preorder(this.root) 
     }
 
 }
@@ -217,7 +220,9 @@ console.log(prettyPrint(tree2.root))
 const tree3 = new Tree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 tree3.deleteItem(5)
 console.log(prettyPrint(tree3.root))
-console.log(tree3.levelOrderForEach((value) => {
+
+
+console.log(tree3.preOrderForEach((value) => {
     console.log(value)
 }))
 
