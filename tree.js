@@ -230,6 +230,24 @@ class Tree {
         postorder(this.root)
     }
 
+    height(value) {
+        if (this.root === null) return
+        let tree = this.root
+        let height = 0
+
+        while (tree !== null) {
+            if (tree.root === value) {
+                return height
+            }
+            if (value > tree.root) {
+                tree = tree.right
+                height++
+            } else {
+                tree = tree.left
+                height++
+            }
+        }
+    }
 }
 
 const arr = [2, 5, 1, 3, 6, 7, 2, 5, 1]
@@ -254,8 +272,6 @@ tree3.deleteItem()
 console.log(prettyPrint(tree3.root))
 
 
-console.log(tree3.postOrderForEach((value) => {
-    console.log(value)
-}))
+console.log(tree3.height(7))
 
 
