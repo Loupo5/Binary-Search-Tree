@@ -161,6 +161,9 @@ class Tree {
 
     levelOrderForEach(callback) {
         if (this.root === null) return
+        if (!callback) {
+            throw new Error("A callback is required")
+        }
         let queue = [this.root]
         let index = 0
 
@@ -175,6 +178,21 @@ class Tree {
                 queue.push(current.right)
             }
         }
+    }
+
+    preOrderForEach(callback) {
+        function preorder(root)
+        let current = this.root
+        if (current === null) return
+        if (!callback) return
+        
+        callback(current.root)
+        if (current.left !== null) {
+            let currentLeft = current.left
+            this.preOrderForEach
+        }
+
+        
     }
 
 }
