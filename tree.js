@@ -1,3 +1,5 @@
+import { prettyPrint } from "./outside.js"
+
 class Node {
     constructor(root) {
         this.root = root
@@ -91,15 +93,6 @@ class Tree {
     }
 
     deleteItem(value) {
-        // make logic for deleting nodes who have two children nodes
-        // have to replace the node with the smallest node on the right subtree
-        /* example: 
-                3
-              2   5
-            1    4  6  --> here if 3 is deleted, 4 should come into its place
-                            because its the smallest value on the right side.
-                            ALSO -- could replace the largest value of the left side
-                                    (won't do that)*/
         let item = this.#getValue(value)
         if (!item) return 
 
@@ -165,16 +158,23 @@ class Tree {
             }
         }
     }
-    
 
-    prettyPrint(node, prefix = '', isLeft = true) {
-        if (node === null || node === undefined) {
-            return;
+    levelOrderForEach(callback) {
+        if (this.root === null) return
+        let queue = [this.root]
+        let index = 0
+
+        while (index < queue.length) {
+            let current = queue[index++]
+            callback(current.root)
+
+            if (current.left !== null) {
+                queue.push(current.left)
+            }
+            if (current.right !== null) {
+                queue.push(current.right)
+            }
         }
-
-        this.prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
-        console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.root}`);
-        this.prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
     }
 
 }
@@ -190,14 +190,17 @@ tree.deleteItem()
 
 console.log(tree)
 console.log(tree.includes(7))
-console.log(tree.prettyPrint(tree.root))
+console.log(prettyPrint(tree.root))
 
 const tree2 = new Tree([1, 2])
 tree2.deleteItem(1)
-console.log(tree2.prettyPrint(tree2.root))
+console.log(prettyPrint(tree2.root))
 
 const tree3 = new Tree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 tree3.deleteItem(5)
-console.log(tree3.prettyPrint(tree3.root))
+console.log(prettyPrint(tree3.root))
+console.log(tree3.levelOrderForEach((value) => {
+    console.log(value)
+}))
 
 
