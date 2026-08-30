@@ -307,6 +307,14 @@ class Tree {
                 return false
         } else return true
     }
+
+    rebalance() {
+        let nodes = []
+        this.preOrderForEach((value) => {
+            nodes.push(value)
+        })
+        this.root = this.#buildTree(this.#sort(nodes))
+    }
 }
 
 const arr = [2, 5, 1, 3, 6, 7, 2, 5, 1]
@@ -334,7 +342,13 @@ console.log(tree3.height(3))
 console.log(tree3.depth(3))
 
 tree3.insert(11)
+tree3.insert(20)
+tree3.insert(22)
 console.log(prettyPrint(tree3.root))
 
+
+console.log(tree3.isBalanced())
+console.log(tree3.rebalance())
+console.log(prettyPrint(tree3.root))
 
 console.log(tree3.isBalanced())
