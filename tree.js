@@ -283,6 +283,27 @@ class Tree {
             }
         }
     }
+
+    isBalanced() {
+        if (this.root === null) return
+        let leftIndex = 0
+        let rightIndex = 0
+
+        function findDeepest(root, depth=0) {
+            if (root === null) {
+                return depth - 1
+            }
+
+            const left = findDeepest(root.left, depth+1)
+            const right = findDeepest(root.right, depth+1)
+
+            return Math.max(left, right)
+        }
+        const deepestLeft = findDeepest(this.root.left, 1)
+        const deepestRight = findDeepest(this.root.right, 1)
+
+        return [deepestLeft, deepestRight]
+    }
 }
 
 const arr = [2, 5, 1, 3, 6, 7, 2, 5, 1]
@@ -304,10 +325,14 @@ console.log(prettyPrint(tree2.root))
 
 const tree3 = new Tree([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 tree3.deleteItem()
-console.log(prettyPrint(tree3.root))
 
 
 console.log(tree3.height(3))
 console.log(tree3.depth(3))
 
+tree3.insert(11)
+tree3.insert(20)
+console.log(prettyPrint(tree3.root))
 
+
+console.log(tree3.isBalanced())
