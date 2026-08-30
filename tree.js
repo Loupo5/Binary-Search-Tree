@@ -302,7 +302,10 @@ class Tree {
         const deepestLeft = findDeepest(this.root.left, 1)
         const deepestRight = findDeepest(this.root.right, 1)
 
-        return [deepestLeft, deepestRight]
+        if (deepestLeft - deepestRight > 1 ||
+            deepestRight - deepestLeft > 1) {
+                return false
+        } else return true
     }
 }
 
@@ -331,7 +334,6 @@ console.log(tree3.height(3))
 console.log(tree3.depth(3))
 
 tree3.insert(11)
-tree3.insert(20)
 console.log(prettyPrint(tree3.root))
 
 
